@@ -3485,12 +3485,16 @@ namespace WPEFramework {
             LOGINFOMETHOD();
             bool success = true;
 
-            LOGINFOMETHOD();
-        
             LOGINFO(":(%s): ***HACK*** enabling custom 3dlut !!!\n",__func__);
-            system("echo 3dlut enable > /sys/class/amvecm/debug");
-            system("echo 3dlut open > /sys/class/amvecm/debug");
-               
+
+            if (parameters["ms12SettingsValue"].String() == "5")
+            {
+                system("echo 3dlut enable > /sys/class/amvecm/debug");
+                system("echo 3dlut open > /sys/class/amvecm/debug");
+            }else{
+                system("echo 3dlut disable > /sys/class/amvecm/debug");
+            }
+
             returnIfParamNotFound(parameters, "operation");
             string audioProfileState = parameters["operation"].String();
 
